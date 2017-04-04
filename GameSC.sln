@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameSC", "Assembly-CSharp.csproj", "{FA7C66F6-3F0E-541C-40B4-8B639BD705B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameSC", "Assembly-CSharp-Editor.csproj", "{6005EE0C-F4FD-A59A-8218-7F453579FC19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA7C66F6-3F0E-541C-40B4-8B639BD705B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA7C66F6-3F0E-541C-40B4-8B639BD705B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA7C66F6-3F0E-541C-40B4-8B639BD705B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA7C66F6-3F0E-541C-40B4-8B639BD705B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6005EE0C-F4FD-A59A-8218-7F453579FC19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6005EE0C-F4FD-A59A-8218-7F453579FC19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6005EE0C-F4FD-A59A-8218-7F453579FC19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6005EE0C-F4FD-A59A-8218-7F453579FC19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
