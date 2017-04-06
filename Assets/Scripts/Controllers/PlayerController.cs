@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	private Rigidbody rb;
+	private AudioSource audioSource;
 
 	public float speed;
 	public Boundary boundary;
@@ -18,10 +19,12 @@ public class PlayerController : MonoBehaviour {
 
 	void Update() {
 
+		audioSource = GetComponent<AudioSource> ();
 		if (Input.GetButton ("Fire1") && Time.time > nextFire) {
 
 			nextFire = Time.time + fireRate;
 			Instantiate (shot, shotSpawn.position, shotSpawn.rotation);
+			audioSource.Play ();
 		}
 
 	}
