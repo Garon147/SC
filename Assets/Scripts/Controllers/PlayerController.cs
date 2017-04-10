@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AssemblyCSharp;
 
 public class PlayerController : MonoBehaviour {
 
@@ -50,8 +51,4 @@ public class PlayerController : MonoBehaviour {
 	}
 }
 
-[System.Serializable]
-public class Boundary {
 
-	public float xMin, xMax, zMin, zMax;
-}

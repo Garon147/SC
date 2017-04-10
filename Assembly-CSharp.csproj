@@ -47,11 +47,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BackgroundScroller.cs" />
+     <Compile Include="Assets\Scripts\Boundary.cs" />
+     <Compile Include="Assets\Scripts\Controllers\EnemyWeaponController.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Destroy\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Destroy\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\Destroy\DestroyByTime.cs" />
+     <Compile Include="Assets\Scripts\SpaceMovers\EvasiveManeuver.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\Mover.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\RandomRotator.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\TutorialInfo.cs" />
