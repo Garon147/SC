@@ -2,10 +2,10 @@ Initialize engine version: 5.5.1f1 (88d00a7498cd)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: Radeon (TM) RX 480 Graphics (ID=0x67df)
-    Vendor:   ATI
-    VRAM:     3072 MB
-    Driver:   16.200.1028.0
+    Renderer: Intel(R) HD Graphics 530 (ID=0x1912)
+    Vendor:   Intel
+    VRAM:     1008 MB
+    Driver:   21.20.16.4664
 Begin MonoManager ReloadAssembly
 Platform assembly: D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\UnityEngine.dll (this message is harmless)
 Loading D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\UnityEngine.dll into Unity Child Domain
@@ -17,14 +17,14 @@ Platform assembly: D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\
 Loading D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
 Loading D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-- Completed reload, in  0.018 seconds
+- Completed reload, in  0.016 seconds
 Platform assembly: D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Programs\Unity_Projects\GameSC\GameSC\GameSC_Data\Managed\System.dll (this message is harmless)
 desktop: 1280x1024 60Hz; virtual: 1280x1024 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 3.525511 ms
+UnloadTime: 3.117887 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: dc -> priority: 1 
-  Thread -> id: 1a80 -> priority: 1 
+  Thread -> id: 182c -> priority: 1 
+  Thread -> id: 1108 -> priority: 1 

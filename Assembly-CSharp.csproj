@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\Destroy\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Destroy\DestroyByContact.cs" />
      <Compile Include="Assets\Scripts\Destroy\DestroyByTime.cs" />
+     <Compile Include="Assets\Scripts\HUD.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\EvasiveManeuver.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\Mover.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\RandomRotator.cs" />

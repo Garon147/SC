@@ -21,9 +21,11 @@ public class GameController : MonoBehaviour {
 	private bool restart;
 	private int score;
 
-	void Start() {
+	private PlayerController player;
 
-
+	void Start() 
+	{
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
 		gameOver = false;
 		restart = false;
 		gameOverText.text = "";
@@ -33,8 +35,8 @@ public class GameController : MonoBehaviour {
 		StartCoroutine (spawnWaves ());
 	}
 
-	void Update() {
-
+	void Update() 
+	{
 		if (restart) {
 
 			if (Input.GetKeyDown (KeyCode.R)) {
@@ -44,8 +46,8 @@ public class GameController : MonoBehaviour {
 		}
 	}
 		
-	IEnumerator spawnWaves() {
-
+	IEnumerator spawnWaves() 
+	{
 		yield return new WaitForSeconds (startWait);
 		while (true) {
 
@@ -61,28 +63,45 @@ public class GameController : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (waveWait);
 
-			if (gameOver) {
-
+/*			if (gameOver) 
+			{
 				restartText.text = "Press 'R' to restart.";
 				restart = true;
 				break;
 			}
+			*/
+			if (gameOver) 
+			{
+				if (player.currentHealth > 0) 
+				{
+					player.currentHealth--;
+					restartText.text = "Press 'R' to restart.";
+					restart = true;
+					break;
+				} 
+				else 
+				{
+					restartText.text = "GAME OVER";
+					restart = false;
+				}
+
+			}
 		}
 	}
 
-	public void addScore(int newScore) {
-
+	public void addScore(int newScore) 
+	{
 		score += newScore;
 		updateScore ();
 	}
 
-	void updateScore() {
-
+	void updateScore() 
+	{
 		scoreText.text = "Score: " + score;
 	}
 
-	public void gameOverMethod() {
-
+	public void gameOverMethod() 
+	{
 		gameOverText.text = "Game Over!";
 		gameOver = true;	
 	}

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using AssemblyCSharp;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour 
+{
 
 	private Rigidbody rb;
 	private AudioSource audioSource;
@@ -18,8 +19,11 @@ public class PlayerController : MonoBehaviour {
 
 	private float nextFire;
 
-	void Update() {
+	public int currentHealth;
+	public int maxHealth;
 
+	void Update() 
+	{
 		audioSource = GetComponent<AudioSource> ();
 		if (Input.GetButton ("Fire1") && Time.time > nextFire) {
 
@@ -30,7 +34,8 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
-	void FixedUpdate() {
+	void FixedUpdate() 
+	{
 
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
