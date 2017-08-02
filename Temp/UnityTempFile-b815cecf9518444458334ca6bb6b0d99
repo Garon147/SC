@@ -84,6 +84,7 @@ Assets/Scripts/Controllers/PlayerController.cs
 Assets/Scripts/Destroy/DestroyByBoundary.cs
 Assets/Scripts/Destroy/DestroyByContact.cs
 Assets/Scripts/Destroy/DestroyByTime.cs
+Assets/Scripts/Destroy/DestroyPlayerByContact.cs
 Assets/Scripts/HUD.cs
 Assets/Scripts/SpaceMovers/EvasiveManeuver.cs
 Assets/Scripts/SpaceMovers/Mover.cs

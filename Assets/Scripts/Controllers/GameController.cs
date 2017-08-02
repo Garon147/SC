@@ -25,7 +25,11 @@ public class GameController : MonoBehaviour {
 
 	void Start() 
 	{
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController> ();
+		GameObject playerObject = GameObject.FindWithTag ("Player");
+		if (playerObject != null) {
+			player = playerObject.GetComponent<PlayerController> ();
+		}
+
 		gameOver = false;
 		restart = false;
 		gameOverText.text = "";
@@ -40,7 +44,7 @@ public class GameController : MonoBehaviour {
 		if (restart) {
 
 			if (Input.GetKeyDown (KeyCode.R)) {
-
+				
 				SceneManager.LoadScene ("Main");
 			}
 		}
@@ -63,28 +67,13 @@ public class GameController : MonoBehaviour {
 			}
 			yield return new WaitForSeconds (waveWait);
 
-/*			if (gameOver) 
-			{
-				restartText.text = "Press 'R' to restart.";
-				restart = true;
-				break;
-			}
-			*/
 			if (gameOver) 
 			{
-				if (player.currentHealth > 0) 
-				{
-					player.currentHealth--;
+				if (player.currentHealth == 0) {
 					restartText.text = "Press 'R' to restart.";
 					restart = true;
 					break;
 				} 
-				else 
-				{
-					restartText.text = "GAME OVER";
-					restart = false;
-				}
-
 			}
 		}
 	}
