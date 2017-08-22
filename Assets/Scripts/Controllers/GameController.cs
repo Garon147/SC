@@ -23,15 +23,19 @@ public class GameController : MonoBehaviour {
 
 	private PlayerController player;
 
+	public bool isDoubleScore;
+
 	void Start() 
 	{
 		GameObject playerObject = GameObject.FindWithTag ("Player");
-		if (playerObject != null) {
+		if (playerObject != null) 
+		{
 			player = playerObject.GetComponent<PlayerController> ();
 		}
 
 		gameOver = false;
 		restart = false;
+		isDoubleScore = false;
 		gameOverText.text = "";
 		restartText.text = "";
 		score = 0;
@@ -53,9 +57,11 @@ public class GameController : MonoBehaviour {
 	IEnumerator spawnWaves() 
 	{
 		yield return new WaitForSeconds (startWait);
-		while (true) {
+		while (true) 
+		{
 
-			for (int i = 0; i < hazardCount; i++) {
+			for (int i = 0; i < hazardCount; i++) 
+			{
 
 				GameObject hazard = hazards [Random.Range (0, hazards.Length)];
 
@@ -74,12 +80,21 @@ public class GameController : MonoBehaviour {
 					restart = true;
 					break;
 				} 
+
 			}
+
+//			decreaseSpawnWait (0.1f);
+//			decreaseWaveWait(0.5f);
+			increaseHazardCount();
 		}
 	}
 
 	public void addScore(int newScore) 
 	{
+		if (isDoubleScore) 
+		{
+			newScore *= 2;
+		}
 		score += newScore;
 		updateScore ();
 	}
@@ -93,5 +108,36 @@ public class GameController : MonoBehaviour {
 	{
 		gameOverText.text = "Game Over!";
 		gameOver = true;	
+	}
+
+	public void decreaseWaveWait(float delta)
+	{
+		if (waveWait != 0) 
+		{
+			waveWait -= delta;
+			gameOverText.text = waveWait.ToString ();
+		} 
+		else 
+		{
+			return;
+		}
+	}
+
+	public void decreaseSpawnWait(float delta)
+	{
+		if (spawnWait != 0) 
+		{
+			spawnWait -= delta;
+			gameOverText.text = spawnWait.ToString();
+		} 
+		else 
+		{
+			return;
+		}
+	}
+
+	public void increaseHazardCount()
+	{
+		hazardCount++;
 	}
 }

@@ -40,6 +40,7 @@ public class KeyboardText : MonoBehaviour
 
 	public void confirm()
 	{
+		PlayerPrefs.SetString ("PhoneNumber", myName.text);
 		SceneManager.LoadScene ("Main");
 	}
 }

@@ -57,6 +57,9 @@
      <Compile Include="Assets\Scripts\Destroy\DestroyByTime.cs" />
      <Compile Include="Assets\Scripts\HUD.cs" />
      <Compile Include="Assets\Scripts\KeyboardText.cs" />
+     <Compile Include="Assets\Scripts\PowerupManager.cs" />
+     <Compile Include="Assets\Scripts\Powerups.cs" />
+     <Compile Include="Assets\Scripts\PowerupsController.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\EvasiveManeuver.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\Mover.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\RandomRotator.cs" />
