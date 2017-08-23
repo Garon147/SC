@@ -10,17 +10,22 @@ public class KeyboardText : MonoBehaviour
 	int wordIndex = -1;
 	string alpha = null;
 	string alpha2 = null;
-	public Text myName = null;
-	char[] nameChar = new char[30];
+	public Text myPhone = null;
+	char[] nameChar = new char[9];
 
 	public void alphabetFunction(string alphabet)
 	{
-		wordIndex++;
-		char[] keepChar = alphabet.ToCharArray ();
-		nameChar [wordIndex] = keepChar [0];
-		alpha = nameChar [wordIndex].ToString ();
-		word += alpha;
-		myName.text = word;
+		if (wordIndex < 9) 
+		{
+			wordIndex++;
+			char[] keepChar = alphabet.ToCharArray ();
+			nameChar [wordIndex] = keepChar [0];
+			alpha = nameChar [wordIndex].ToString ();
+			word += alpha;
+			myPhone.text = word;
+		}
+
+
 	}
 
 	public void backspace()
@@ -34,13 +39,13 @@ public class KeyboardText : MonoBehaviour
 				alpha2 += nameChar [i].ToString ();
 			}
 			word = alpha2;
-			myName.text = word;
+			myPhone.text = word;
 		}
 	}
 
 	public void confirm()
 	{
-		PlayerPrefs.SetString ("PhoneNumber", myName.text);
+		PlayerPrefs.SetString ("CurrentPhoneNumber", myPhone.text);
 		SceneManager.LoadScene ("Main");
 	}
 }

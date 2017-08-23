@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
 	public GUIText scoreText;
 	public GUIText restartText;
 	public GUIText gameOverText;
+	public GUIText highscoreText;
 
 	private bool gameOver;
 	private bool restart;
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour {
 		isDoubleScore = false;
 		gameOverText.text = "";
 		restartText.text = "";
+		highscoreText.text = "";
 		score = 0;
 		updateScore ();
 		StartCoroutine (spawnWaves ());
@@ -49,7 +51,7 @@ public class GameController : MonoBehaviour {
 
 			if (Input.GetKeyDown (KeyCode.R)) {
 				
-				SceneManager.LoadScene ("Main");
+				SceneManager.LoadScene ("KeyboardScene");
 			}
 		}
 	}
@@ -75,11 +77,12 @@ public class GameController : MonoBehaviour {
 
 			if (gameOver) 
 			{
-				if (player.currentHealth == 0) {
-					restartText.text = "Press 'R' to restart.";
-					restart = true;
-					break;
+				if (player.currentHealth == -1) {
+					
 				} 
+				restartText.text = "Press 'R' to restart.";
+				restart = true;
+				break;
 
 			}
 
@@ -107,7 +110,10 @@ public class GameController : MonoBehaviour {
 	public void gameOverMethod() 
 	{
 		gameOverText.text = "Game Over!";
-		gameOver = true;	
+		gameOver = true;
+		string currentPhoneNumberKey = PlayerPrefs.GetString ("CurrentPhoneNumber");
+		PlayerPrefs.SetInt (currentPhoneNumberKey, score);
+		highscoreText.text = currentPhoneNumberKey + " : " + score;
 	}
 
 	public void decreaseWaveWait(float delta)
