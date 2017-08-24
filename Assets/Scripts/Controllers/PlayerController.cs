@@ -59,6 +59,11 @@ public class PlayerController : MonoBehaviour
 	{
 		currentHealth -= damage;
 	}
+
+	public void setFireRate(float _fireRate)
+	{
+		fireRate = _fireRate;
+	}
 }
 
 

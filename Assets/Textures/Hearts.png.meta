@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3c50682be457ab440bf95127d1a59e2f
-timeCreated: 1501616963
+timeCreated: 1503611478
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,6 +8,7 @@ TextureImporter:
     21300002: Hearts_1
     21300004: Hearts_2
     21300006: Hearts_3
+    21300008: Bonus_heart
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -119,6 +120,19 @@ TextureImporter:
         x: 2
         y: 2
         width: 49
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Bonus_heart
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 62
+        width: 15
         height: 13
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

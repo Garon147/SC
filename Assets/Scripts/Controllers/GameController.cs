@@ -17,14 +17,17 @@ public class GameController : MonoBehaviour {
 	public GUIText restartText;
 	public GUIText gameOverText;
 	public GUIText highscoreText;
+	public GUIText doubleScoreText;
+	public GUIText fireRateText;
 
 	private bool gameOver;
 	private bool restart;
 	private int score;
 
-	private PlayerController player;
+	public PlayerController player;
 
 	public bool isDoubleScore;
+	public bool isFireRate;
 
 	void Start() 
 	{
@@ -36,10 +39,16 @@ public class GameController : MonoBehaviour {
 
 		gameOver = false;
 		restart = false;
+
 		isDoubleScore = false;
+		isFireRate = false;
+
 		gameOverText.text = "";
 		restartText.text = "";
 		highscoreText.text = "";
+		doubleScoreText.text = "";
+		fireRateText.text = "";
+
 		score = 0;
 		updateScore ();
 		StartCoroutine (spawnWaves ());
@@ -54,6 +63,13 @@ public class GameController : MonoBehaviour {
 				SceneManager.LoadScene ("KeyboardScene");
 			}
 		}
+
+		GameObject playerObject = GameObject.FindWithTag ("Player");
+		if (playerObject != null) 
+		{
+			player = playerObject.GetComponent<PlayerController> ();
+		}
+		updateFireRate ();
 	}
 		
 	IEnumerator spawnWaves() 
@@ -69,6 +85,11 @@ public class GameController : MonoBehaviour {
 
 				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity;
+
+//				if (hazard.CompareTag ("Powerup")) {
+//					spawnRotation = new Quaternion ();
+//					spawnRotation.x = -90.0f;
+//				}
 
 				Instantiate (hazard, spawnPosition, spawnRotation);
 				yield return new WaitForSeconds (spawnWait);
@@ -100,6 +121,19 @@ public class GameController : MonoBehaviour {
 		}
 		score += newScore;
 		updateScore ();
+	}
+
+	public void updateFireRate()
+	{
+		if (isFireRate) 
+		{
+			player.setFireRate (0.1f);
+		} 
+		else 
+		{
+			player.setFireRate (0.25f);
+		}
+
 	}
 
 	void updateScore() 

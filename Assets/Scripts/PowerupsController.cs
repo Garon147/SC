@@ -13,27 +13,31 @@ public class PowerupsController : MonoBehaviour
 
 	private PowerupManager powerupManager;
 
+	public float speed;
 
-
-	// Use this for initialization
 	void Start () 
 	{
 		powerupManager = FindObjectOfType<PowerupManager> ();
 	}
-	
-	// Update is called once per frame
+
 	void Update () 
 	{
-		
+		transform.Translate (0.0f, speed * Time.deltaTime, 0.0f);
 	}
 
 	void OnTriggerEnter(Collider other)
 	{
+		if (other.CompareTag("Enemy"))
+		{
+			Physics.IgnoreCollision (this.GetComponent<Collider> (), other);
+		}
+
 		if (other.CompareTag ("Player")) 
 		{
 			powerupManager.activatePowerup (isDoubleScore, isHealth, isFireRate, powerUpDuration);
+			gameObject.SetActive (false);
 		}
 
-		gameObject.SetActive (false);
+
 	}
 }

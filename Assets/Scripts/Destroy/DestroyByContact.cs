@@ -19,18 +19,22 @@ public class DestroyByContact : MonoBehaviour
 		if (gameControllerObject != null) 
 		{
 			gameController = gameControllerObject.GetComponent<GameController> ();
-			player = playerObject.GetComponent<PlayerController> ();
 		} 
 		else 
 		{
 			Debug.Log ("Can't find gamecontroller");
+		}
+
+		if (playerObject != null) 
+		{
+			player = playerObject.GetComponent<PlayerController> ();
 		}
 	}
 
 
 	void OnTriggerEnter(Collider other) 
 	{
-		if (other.CompareTag("Boundary") || other.CompareTag("Enemy")) { return; }
+		if (other.CompareTag("Boundary") || other.CompareTag("Enemy") || other.CompareTag("Powerup")) { return; }
 
 		if (explosion != null) 
 		{
@@ -40,14 +44,18 @@ public class DestroyByContact : MonoBehaviour
 
 		if (other.CompareTag("Player")) 
 		{
+			float fireRate = player.fireRate;
 			GameObject curPlayer = other.gameObject;
-			if (curPlayer != null) {
+			if (curPlayer != null) 
+			{
 				player = curPlayer.GetComponent<PlayerController> ();
+				player.fireRate = fireRate;
 			}
 
 			if (player.currentHealth > 0) 
 			{
 				player.applyDamage (1);
+
 				Instantiate (playerExplosion, other.transform.position, other.transform.rotation);
 				Instantiate (curPlayer, transform.position, transform.rotation);
 			} 
@@ -55,7 +63,6 @@ public class DestroyByContact : MonoBehaviour
 			{
 				gameController.gameOverMethod ();
 			}
-
 		}
 
 		gameController.addScore (scoreValue);

@@ -19,7 +19,12 @@ public class HUD : MonoBehaviour
 
 	void Update () 
 	{
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<PlayerController>();
-		currentHealthImage.sprite = heartSprites [player.currentHealth];
+		GameObject playerObject = GameObject.FindGameObjectWithTag ("Player");
+		if (playerObject != null) 
+		{
+			player = playerObject.GetComponent<PlayerController> ();
+			currentHealthImage.sprite = heartSprites [player.currentHealth];
+		}
+
 	}
 }

@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\KeyboardText.cs" />
      <Compile Include="Assets\Scripts\PowerupManager.cs" />
      <Compile Include="Assets\Scripts\PowerupMover.cs" />
+     <Compile Include="Assets\Scripts\PowerupType.cs" />
      <Compile Include="Assets\Scripts\Powerups.cs" />
      <Compile Include="Assets\Scripts\PowerupsController.cs" />
      <Compile Include="Assets\Scripts\SpaceMovers\EvasiveManeuver.cs" />
