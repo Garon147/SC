@@ -9,6 +9,9 @@ public class GameController : MonoBehaviour {
 	public Vector3 spawnValues;
 	public int hazardCount;
 
+	public GameObject[] powerups;
+	public int powerupCount;
+
 	public float spawnWait;
 	public float startWait;
 	public float waveWait;
@@ -29,6 +32,8 @@ public class GameController : MonoBehaviour {
 	public bool isDoubleScore;
 	public bool isFireRate;
 
+	public float bonusProbability;
+
 	void Start() 
 	{
 		GameObject playerObject = GameObject.FindWithTag ("Player");
@@ -43,6 +48,8 @@ public class GameController : MonoBehaviour {
 		isDoubleScore = false;
 		isFireRate = false;
 
+		bonusProbability = 0.0f;
+
 		gameOverText.text = "";
 		restartText.text = "";
 		highscoreText.text = "";
@@ -52,6 +59,7 @@ public class GameController : MonoBehaviour {
 		score = 0;
 		updateScore ();
 		StartCoroutine (spawnWaves ());
+		StartCoroutine (spawnPowerups ());
 	}
 
 	void Update() 
@@ -70,6 +78,8 @@ public class GameController : MonoBehaviour {
 			player = playerObject.GetComponent<PlayerController> ();
 		}
 		updateFireRate ();
+		updateBonusSpawnProbability ();
+
 	}
 		
 	IEnumerator spawnWaves() 
@@ -85,11 +95,6 @@ public class GameController : MonoBehaviour {
 
 				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity;
-
-//				if (hazard.CompareTag ("Powerup")) {
-//					spawnRotation = new Quaternion ();
-//					spawnRotation.x = -90.0f;
-//				}
 
 				Instantiate (hazard, spawnPosition, spawnRotation);
 				yield return new WaitForSeconds (spawnWait);
@@ -107,10 +112,42 @@ public class GameController : MonoBehaviour {
 
 			}
 
-//			decreaseSpawnWait (0.1f);
-//			decreaseWaveWait(0.5f);
 			increaseHazardCount();
+//			updateBonusSpawnProbability ();
 		}
+	}
+
+	IEnumerator spawnPowerups()
+	{
+		yield return new WaitForSeconds (0.5f);
+		while (true) 
+		{
+			for (int i = 0; i < powerupCount; i++) 
+			{
+				GameObject powerup = powerups [Random.Range (0, powerups.Length)];
+				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+				Quaternion spawnRotation = Quaternion.identity;
+
+				if (score < 1000 && score > 20000) 
+				{
+					if (bonusProbability > 0.9f) 
+					{
+						Instantiate (powerup, spawnPosition, spawnRotation);
+					}
+				} 
+				else 
+				{
+					if (bonusProbability > 0.79f) 
+					{
+						Instantiate (powerup, spawnPosition, spawnRotation);
+					}
+				}
+				yield return new WaitForSeconds (0.0001f);
+
+			}
+			yield return new WaitForSeconds (2.0f);
+		}
+
 	}
 
 	public void addScore(int newScore) 
@@ -178,6 +215,26 @@ public class GameController : MonoBehaviour {
 
 	public void increaseHazardCount()
 	{
-		hazardCount++;
+		hazardCount += (1 + Mathf.FloorToInt (score / 1000));
 	}
+
+	public void updateBonusSpawnProbability()
+	{
+		if (score < 1000) 
+		{
+			bonusProbability = Random.Range (1, 20) * 0.05f;
+			powerupCount = 1;
+		} 
+		else if (score > 20000) 
+		{
+			bonusProbability = Random.Range (1, 20) * 0.05f;
+			powerupCount = 2;
+		} 
+		else 
+		{
+			bonusProbability = Random.Range (1, 5) * 0.2f;
+			powerupCount = 3;
+		}
+	}
+
 }
