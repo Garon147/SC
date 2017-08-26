@@ -13,6 +13,9 @@ public class KeyboardText : MonoBehaviour
 	public Text myPhone = null;
 	char[] nameChar = new char[9];
 
+	bool isClickAllowed;
+	KeyboardCursorController.MousePoint cursorPoint;
+
 	public void alphabetFunction(string alphabet)
 	{
 		if (wordIndex < 9) 
@@ -25,7 +28,7 @@ public class KeyboardText : MonoBehaviour
 			myPhone.text = word;
 		}
 
-
+		isClickAllowed = false;
 	}
 
 	public void backspace()
@@ -41,11 +44,42 @@ public class KeyboardText : MonoBehaviour
 			word = alpha2;
 			myPhone.text = word;
 		}
+
+		isClickAllowed = false;
 	}
 
 	public void confirm()
 	{
 		PlayerPrefs.SetString ("CurrentPhoneNumber", myPhone.text);
 		SceneManager.LoadScene ("Main");
+	}
+
+	void Start()
+	{
+		isClickAllowed = false;
+		cursorPoint = new KeyboardCursorController.MousePoint ();
+	}
+
+	void Update()
+	{
+		if (Input.GetButton ("Fire1") && !isClickAllowed) 
+		{
+			KeyboardCursorController.MouseEvent
+			(
+				KeyboardCursorController.MouseEventFlags.LeftDown | 
+				KeyboardCursorController.MouseEventFlags.LeftUp
+			);
+			isClickAllowed = true;
+		}
+	}
+
+	void FixedUpdate()
+	{
+		float moveHorizontal = Input.GetAxis ("Horizontal");
+		float moveVertical = Input.GetAxis ("Vertical");
+		cursorPoint = KeyboardCursorController.GetCursorPosition ();
+		cursorPoint.X += (int)moveHorizontal;
+		cursorPoint.Y += (int)moveVertical;
+		KeyboardCursorController.SetCursorPosition (cursorPoint);
 	}
 }
