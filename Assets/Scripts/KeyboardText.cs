@@ -16,10 +16,16 @@ public class KeyboardText : MonoBehaviour
 	bool isClickAllowed;
 	KeyboardCursorController.MousePoint cursorPoint;
 
+	private float waitTimer = 0.5f;
+
+	public Text warningText;
+
 	public void alphabetFunction(string alphabet)
 	{
 		if (wordIndex < 9) 
 		{
+			showWarningWithAlpha (0.0f);
+
 			wordIndex++;
 			char[] keepChar = alphabet.ToCharArray ();
 			nameChar [wordIndex] = keepChar [0];
@@ -27,14 +33,14 @@ public class KeyboardText : MonoBehaviour
 			word += alpha;
 			myPhone.text = word;
 		}
-
-		isClickAllowed = false;
 	}
 
 	public void backspace()
 	{
 		if (wordIndex >= 0) 
 		{
+			showWarningWithAlpha (0.0f);
+
 			wordIndex--;
 			alpha2 = null;
 			for (int i = 0; i < wordIndex + 1; i++) 
@@ -44,32 +50,43 @@ public class KeyboardText : MonoBehaviour
 			word = alpha2;
 			myPhone.text = word;
 		}
-
-		isClickAllowed = false;
 	}
 
 	public void confirm()
 	{
-		PlayerPrefs.SetString ("CurrentPhoneNumber", myPhone.text);
-		SceneManager.LoadScene ("Main");
+		if (myPhone.text.Length < 9) 
+		{
+			showWarningWithAlpha (1.0f);
+		} 
+		else 
+		{
+			PlayerPrefs.SetString ("CurrentPhoneNumber", myPhone.text);
+			SceneManager.LoadScene ("Main");
+		}
+
 	}
 
 	void Start()
 	{
 		isClickAllowed = false;
 		cursorPoint = new KeyboardCursorController.MousePoint ();
+		warningText.text = "Phone number is wrong";
+
+		showWarningWithAlpha (0.0f);
+
+		Cursor.visible = true;
+	
 	}
 
 	void Update()
 	{
-		if (Input.GetButton ("Fire1") && !isClickAllowed) 
+		if (waitTimer > 0) 
 		{
-			KeyboardCursorController.MouseEvent
-			(
-				KeyboardCursorController.MouseEventFlags.LeftDown | 
-				KeyboardCursorController.MouseEventFlags.LeftUp
-			);
-			isClickAllowed = true;
+			waitTimer -= Time.deltaTime;
+		} 
+		else 
+		{
+			isClickAllowed = false;
 		}
 	}
 
@@ -78,8 +95,26 @@ public class KeyboardText : MonoBehaviour
 		float moveHorizontal = Input.GetAxis ("Horizontal");
 		float moveVertical = Input.GetAxis ("Vertical");
 		cursorPoint = KeyboardCursorController.GetCursorPosition ();
-		cursorPoint.X += (int)moveHorizontal;
-		cursorPoint.Y += (int)moveVertical;
+		cursorPoint.X += 3 * (int)moveHorizontal;
+		cursorPoint.Y -= 3 * (int)moveVertical;
 		KeyboardCursorController.SetCursorPosition (cursorPoint);
+
+		if (Input.GetButton ("Fire1") && !isClickAllowed) 
+		{
+			KeyboardCursorController.MouseEvent
+			(
+				KeyboardCursorController.MouseEventFlags.LeftDown | 
+				KeyboardCursorController.MouseEventFlags.LeftUp
+			);
+			isClickAllowed = true;
+			waitTimer = 0.5f;
+		}
+	}
+
+	public void showWarningWithAlpha(float alpha)
+	{
+		Color temp = warningText.color;
+		temp.a = alpha;
+		warningText.color = temp;
 	}
 }

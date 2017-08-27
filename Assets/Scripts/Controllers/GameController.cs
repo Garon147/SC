@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour {
 		updateScore ();
 		StartCoroutine (spawnWaves ());
 		StartCoroutine (spawnPowerups ());
+
+		Cursor.visible = false;
 	}
 
 	void Update() 
@@ -183,8 +185,21 @@ public class GameController : MonoBehaviour {
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 		string currentPhoneNumberKey = PlayerPrefs.GetString ("CurrentPhoneNumber");
-		PlayerPrefs.SetInt (currentPhoneNumberKey, score);
-		highscoreText.text = currentPhoneNumberKey + " : " + score;
+
+		if (PlayerPrefs.HasKey ("Highscore")) {
+			if (score > PlayerPrefs.GetInt ("Highscore")) {
+				PlayerPrefs.SetInt ("Highscore", score);
+				PlayerPrefs.SetString ("HighscoreKey", currentPhoneNumberKey);
+				highscoreText.text = "Highscore" + " : " + currentPhoneNumberKey + " : " + score;
+			}
+		} else {
+			PlayerPrefs.SetInt ("Highscore", score);
+			PlayerPrefs.SetString ("HighscoreKey", currentPhoneNumberKey);
+			highscoreText.text = "Highscore" + " : " + currentPhoneNumberKey + " : " + score;
+		}
+//		PlayerPrefs.SetInt (currentPhoneNumberKey, score);
+//		highscoreText.text = currentPhoneNumberKey + " : " + score;
+//		addHighScore(currentPhoneNumberKey, score);
 	}
 
 	public void decreaseWaveWait(float delta)
@@ -237,4 +252,41 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	public void addHighScore(string name, int score)
+	{
+		int newScore;
+		string newName;
+		int oldScore;
+		string oldName;
+		newScore = score;
+		newName = name;
+		string hsScoreKey = "HighScore";
+		string hsNameKey = "HighScoreName";
+		for(int i = 0 ; i < 10 ; i++)
+		{
+			if(PlayerPrefs.HasKey(i + hsScoreKey))
+			{
+				if(PlayerPrefs.GetInt(i+hsScoreKey) < newScore)
+				{ 
+					// new score is higher than the stored score
+					oldScore = PlayerPrefs.GetInt(i+hsScoreKey);
+					oldName = PlayerPrefs.GetString(i+hsNameKey);
+					PlayerPrefs.SetInt(i+hsScoreKey,newScore);
+					PlayerPrefs.SetString(i+hsNameKey,newName);
+					highscoreText.text = PlayerPrefs.GetString(i+hsNameKey) + " : " + PlayerPrefs.GetInt(i+hsScoreKey);
+					newScore = oldScore;
+					newName = oldName;
+					Debug.Log (newName + " : " + newScore); 
+				}
+			}
+			else
+			{
+				PlayerPrefs.SetInt(i+hsScoreKey,newScore);
+				PlayerPrefs.SetString(i+hsNameKey,newName);
+				highscoreText.text = PlayerPrefs.GetString(i+hsNameKey) + " : " + PlayerPrefs.GetInt(i+hsScoreKey);
+				newScore = 0;
+				newName = "";
+			}
+		}
+	}
 }
