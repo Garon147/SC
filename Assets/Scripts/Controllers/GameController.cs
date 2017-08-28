@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
 	public GUIText highscoreText;
 	public GUIText doubleScoreText;
 	public GUIText fireRateText;
+	public GUIText yourScoreText;
 
 	private bool gameOver;
 	private bool restart;
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour {
 		highscoreText.text = "";
 		doubleScoreText.text = "";
 		fireRateText.text = "";
+		yourScoreText.text = "";
 
 		score = 0;
 		updateScore ();
@@ -108,7 +110,7 @@ public class GameController : MonoBehaviour {
 				if (player.currentHealth == -1) {
 					
 				} 
-				restartText.text = "Press 'R' to restart.";
+				restartText.text = "Go to bar to restart";
 				restart = true;
 				break;
 
@@ -132,14 +134,14 @@ public class GameController : MonoBehaviour {
 
 				if (score < 1000 && score > 20000) 
 				{
-					if (bonusProbability > 0.9f) 
+					if (bonusProbability > 0.95f) 
 					{
 						Instantiate (powerup, spawnPosition, spawnRotation);
 					}
 				} 
 				else 
 				{
-					if (bonusProbability > 0.79f) 
+					if (bonusProbability > 0.9f) 
 					{
 						Instantiate (powerup, spawnPosition, spawnRotation);
 					}
@@ -185,21 +187,31 @@ public class GameController : MonoBehaviour {
 		gameOverText.text = "Game Over!";
 		gameOver = true;
 		string currentPhoneNumberKey = PlayerPrefs.GetString ("CurrentPhoneNumber");
+		yourScoreText.text = "Your score : " + score;
 
-		if (PlayerPrefs.HasKey ("Highscore")) {
-			if (score > PlayerPrefs.GetInt ("Highscore")) {
+		System.IO.File.AppendAllText(
+			@"D:\logs\results.txt",
+			currentPhoneNumberKey + " : " + score + System.Environment.NewLine
+			);
+		if (PlayerPrefs.HasKey ("Highscore")) 
+		{
+			if (score > PlayerPrefs.GetInt ("Highscore")) 
+			{
 				PlayerPrefs.SetInt ("Highscore", score);
 				PlayerPrefs.SetString ("HighscoreKey", currentPhoneNumberKey);
-				highscoreText.text = "Highscore" + " : " + currentPhoneNumberKey + " : " + score;
+				highscoreText.text = "Highscore" + " : " + score;
+			} 
+			else 
+			{
+				highscoreText.text = "Highscore" + " : " + PlayerPrefs.GetInt("Highscore");
 			}
-		} else {
+		} 
+		else 
+		{
 			PlayerPrefs.SetInt ("Highscore", score);
 			PlayerPrefs.SetString ("HighscoreKey", currentPhoneNumberKey);
-			highscoreText.text = "Highscore" + " : " + currentPhoneNumberKey + " : " + score;
+			highscoreText.text = "Highscore" + " : " + score;
 		}
-//		PlayerPrefs.SetInt (currentPhoneNumberKey, score);
-//		highscoreText.text = currentPhoneNumberKey + " : " + score;
-//		addHighScore(currentPhoneNumberKey, score);
 	}
 
 	public void decreaseWaveWait(float delta)
@@ -237,17 +249,17 @@ public class GameController : MonoBehaviour {
 	{
 		if (score < 1000) 
 		{
-			bonusProbability = Random.Range (1, 20) * 0.05f;
+			bonusProbability = Random.Range (1, 40) * 0.025f;
 			powerupCount = 1;
 		} 
 		else if (score > 20000) 
 		{
-			bonusProbability = Random.Range (1, 20) * 0.05f;
+			bonusProbability = Random.Range (1, 20) * 0.025f;
 			powerupCount = 2;
 		} 
 		else 
 		{
-			bonusProbability = Random.Range (1, 5) * 0.2f;
+			bonusProbability = Random.Range (1, 20) * 0.05f;
 			powerupCount = 3;
 		}
 	}

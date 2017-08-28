@@ -38,14 +38,14 @@ public class PowerupManager : MonoBehaviour
 			{
 				powerUpDurationCounter -= Time.deltaTime;
 				gameController.isDoubleScore = true;
-				gameController.doubleScoreText.text = "X2 SCORE BONUS!!!!!";
+				gameController.doubleScoreText.text = "DOUBLE POINTS BONUS!";
 			}
 
 			if (isFireRate) 
 			{
 				powerUpDurationCounterFire -= Time.deltaTime;
 				gameController.isFireRate = true;
-				gameController.fireRateText.text = "MORE FIREPOWER!!!!!";
+				gameController.fireRateText.text = "MORE FIREPOWER BONUS!";
 			}
 
 			if (powerUpDurationCounter <= 0) 
@@ -67,7 +67,7 @@ public class PowerupManager : MonoBehaviour
 				isPowerupActive = false;
 			}
 
-			gameController.restartText.text = powerUpDurationCounter+" ________ "+powerUpDurationCounterFire;
+//			gameController.restartText.text = powerUpDurationCounter+" ________ "+powerUpDurationCounterFire;
 		}
 
 		if (isHealth) 

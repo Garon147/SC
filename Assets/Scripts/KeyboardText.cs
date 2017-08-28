@@ -70,7 +70,7 @@ public class KeyboardText : MonoBehaviour
 	{
 		isClickAllowed = false;
 		cursorPoint = new KeyboardCursorController.MousePoint ();
-		warningText.text = "Phone number is wrong";
+		warningText.text = "Phone number must contain 9 characters";
 
 		showWarningWithAlpha (0.0f);
 
