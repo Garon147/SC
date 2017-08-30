@@ -87,6 +87,16 @@ public class GameController : MonoBehaviour {
 		updateFireRate ();
 		updateBonusSpawnProbability ();
 
+		if (gameOver) 
+		{
+			if (player.currentHealth == -1) 
+			{
+
+			} 
+			restartText.text = "Go to bar to restart";
+			restart = true;
+		}
+
 	}
 		
 	IEnumerator spawnWaves() 
@@ -115,17 +125,6 @@ public class GameController : MonoBehaviour {
 				yield return new WaitForSeconds (spawnWait);
 			}
 			yield return new WaitForSeconds (waveWait);
-
-			if (gameOver) 
-			{
-				if (player.currentHealth == -1) {
-					
-				} 
-				restartText.text = "Go to bar to restart";
-				restart = true;
-				break;
-
-			}
 
 			increaseHazardCount();
 //			updateBonusSpawnProbability ();
