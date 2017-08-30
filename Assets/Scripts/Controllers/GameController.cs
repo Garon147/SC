@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	public GameObject[] hazards;
+	public GameObject improvedEnemy;
 	public Vector3 spawnValues;
 	public int hazardCount;
 
@@ -34,6 +35,8 @@ public class GameController : MonoBehaviour {
 	public bool isFireRate;
 
 	public float bonusProbability;
+
+
 
 	void Start() 
 	{
@@ -94,8 +97,16 @@ public class GameController : MonoBehaviour {
 
 			for (int i = 0; i < hazardCount; i++) 
 			{
+				GameObject hazard;
+				if (score < 16000) 
+				{
+					hazard = hazards [Random.Range (0, hazards.Length)];
+				} 
+				else 
+				{
+					hazard = improvedEnemy;
+				}
 
-				GameObject hazard = hazards [Random.Range (0, hazards.Length)];
 
 				Vector3 spawnPosition = new Vector3 (Random.Range (-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
 				Quaternion spawnRotation = Quaternion.identity;
@@ -252,9 +263,9 @@ public class GameController : MonoBehaviour {
 			bonusProbability = Random.Range (1, 40) * 0.025f;
 			powerupCount = 1;
 		} 
-		else if (score > 20000) 
+		else if (score > 15000) 
 		{
-			bonusProbability = Random.Range (1, 20) * 0.025f;
+			bonusProbability = Random.Range (1, 20) * 0.04f;
 			powerupCount = 2;
 		} 
 		else 
